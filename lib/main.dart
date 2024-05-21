@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
           primarySwatch: Colors.yellow,
-
           appBarTheme: const AppBarTheme(
             backgroundColor: Color.fromARGB(255, 30, 30, 30),
             titleTextStyle: TextStyle(
@@ -40,22 +39,14 @@ class MyApp extends StatelessWidget {
                 fontSize: 14
             )
           )),
-          // routes: {
-          //   '/': (context) => CryptoListScreen(),
-          //   '/coin': (context) => CryptoCoinScreen(),
-          // },
-      home: const CryptoListScreen(),
-          )
-      ),
-      home: const CryptoListScreen(),
+          routes: {
+            '/': (context) => const CryptoListScreen(),
+            '/coin': (context) => const CryptoCoinScreen(),
+          }
     );
   }
 }
 
-class CryptoListScreen extends StatefulWidget {
-  const CryptoListScreen({
-    super.key,
-  });
 class CryptoListScreen extends StatefulWidget {
   const CryptoListScreen({super.key});
 
@@ -90,9 +81,9 @@ class _CryptoListScreen extends State<CryptoListScreen> {
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CryptoCoinScreen()));
+            Navigator.of(context).pushNamed('/coin');
           },
-        ),
+        ),      
       )
     );
   }
