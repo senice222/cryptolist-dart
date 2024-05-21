@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
@@ -9,7 +11,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,6 +19,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
           primarySwatch: Colors.yellow,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color.fromARGB(255, 30, 30, 30),
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w700
+            )
+          ),
+          dividerColor: Colors.white10,
+          listTileTheme: const ListTileThemeData(iconColor: Colors.white),
           textTheme: TextTheme(
             bodyMedium: const TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20
@@ -27,19 +39,23 @@ class MyApp extends StatelessWidget {
                 fontSize: 14
             )
           )),
-      home: const MyHomePage(),
+          // routes: {
+          //   '/': (context) => CryptoListScreen(),
+          //   '/coin': (context) => CryptoCoinScreen(),
+          // },
+      home: const CryptoListScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class CryptoListScreen extends StatefulWidget {
+  const CryptoListScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<CryptoListScreen> createState() => _CryptoListScreen();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _CryptoListScreen extends State<CryptoListScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -47,14 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("CryptoCurrenciesList"),
-        backgroundColor: Colors.yellow,
       ),
-      body: ListView.builder(
+      body: ListView.separated(
         itemCount: 10,
+        separatorBuilder: (context, i) => const Divider(),
         itemBuilder: (context, i) => ListTile(
           leading: SvgPicture.asset("assets/svg/bitcoin-btc-logo.svg",
-              height: 25,
-              width: 25
+              height: 30,
+              width: 30
           ),
           title: Text(
             "Bitcoin",
@@ -64,12 +80,23 @@ class _MyHomePageState extends State<MyHomePage> {
             '200000\$',
             style: theme.textTheme.labelSmall
           ),
+          trailing: const Icon(Icons.arrow_forward_ios),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CryptoCoinScreen()));
+          },
         ),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ),
+      )
+    );
+  }
+}
+
+class CryptoCoinScreen extends StatelessWidget {
+  const CryptoCoinScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Bitcoin"))
     );
   }
 }
