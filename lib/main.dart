@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
           primarySwatch: Colors.yellow,
+
           appBarTheme: const AppBarTheme(
             backgroundColor: Color.fromARGB(255, 30, 30, 30),
             titleTextStyle: TextStyle(
@@ -44,10 +45,17 @@ class MyApp extends StatelessWidget {
           //   '/coin': (context) => CryptoCoinScreen(),
           // },
       home: const CryptoListScreen(),
+          )
+      ),
+      home: const CryptoListScreen(),
     );
   }
 }
 
+class CryptoListScreen extends StatefulWidget {
+  const CryptoListScreen({
+    super.key,
+  });
 class CryptoListScreen extends StatefulWidget {
   const CryptoListScreen({super.key});
 
